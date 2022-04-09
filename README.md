@@ -16,17 +16,20 @@ Desplegar contenedores con la configuración del **docker-compose.yml**.
 ```
 docker-compose up -d
 ```
-Crear una copia del archivo `.env.example` y llamarlo `.env`. Generar la key de la aplicación.
-```
-docker exec -it app_posts php artisan key:generate
-```
+Crear una copia del archivo `.env.example` y llamarlo `.env`. 
+
 Instalar dependencias de laravel con composer.
 
 ```
 docker exec -it app_posts composer install
 ```
 
-Correr las migraciones con el comando Artisan.
+Generar la key de la aplicación.
+```
+docker exec -it app_posts php artisan key:generate
+```
+
+Correr las migraciones.
 ```
 docker exec -it app_posts php artisan migrate
 ```

@@ -27,6 +27,8 @@ Route::group(['middleware' => 'api'], function () {
         Route::get( 'me',       [AuthController::class, 'me']);
     });
 
+    Route::post("users/create", [ UsersController::class, "store" ]);
+
     Route::group(["middleware" => "auth"], function(){
         Route::apiResources([
             "users"  => UsersController::class,
