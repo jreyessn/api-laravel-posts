@@ -38,7 +38,7 @@ class PostsController extends Controller
 
         try{
             $data = $request->all();
-            $data["user_id"] = 1; // Test
+            $data["user_id"] = $request->user()->id;
 
             $post = Post::create($data);
             
