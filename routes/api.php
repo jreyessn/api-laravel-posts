@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\VideosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResources([
-    "users" => UsersController::class,
-    "posts" => PostsController::class
+    "users"  => UsersController::class,
+    "posts"  => PostsController::class,
+    "videos" => VideosController::class
 ]);
