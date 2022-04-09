@@ -16,8 +16,17 @@ class Post extends Model
         "user_id"
     ];
 
+    protected $with = [
+        "tags"
+    ];
+
     public function tags()
     {
-        return $this->morphMany(Tag::class, "model");
+        return $this->morphToMany(Tag::class, "model", "model_tags");
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
