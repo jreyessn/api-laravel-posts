@@ -38,7 +38,7 @@ docker exec -it app_posts php artisan jwt:secret
 
 ## Desarrollo
 
-Ya el ambiente de desarrollo se encuentra desplegado en el puerto **5000**. [http://localhost:5000/](http://localhost:5000/)
+Una vez levantado los contenedores, el ambiente se encontraría desplegado en el puerto **5000**. [http://localhost:5000/](http://localhost:5000/)
 
 ## Postman
 La colección de Postman ya tiene configuradas las variables de entorno (API y TOKEN). Con hacer login con un usuario dentro de **Auth/Sign In** el access_token se asignará automáticamente a las cabeceras de las peticiones.
