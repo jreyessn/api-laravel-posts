@@ -39,6 +39,11 @@ Generar key de JWT.
 docker exec -it app_posts php artisan jwt:secret
 ```
 
+Dar permisos a la carpeta de storage
+```
+docker exec -it app_posts chown -R root:www-data /var/www/html/storage/
+```
+
 ## Desarrollo
 
 Una vez levantado los contenedores, el ambiente se encontraría desplegado en el puerto **5000**. [http://localhost:5000/](http://localhost:5000/)
