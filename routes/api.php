@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostsController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\VideosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => 'api'], function () {
+
+    Route::group(["prefix" => "auth"], function(){
+        Route::post('sign-in',  [AuthController::class, 'login']);
+        Route::post('sign-out', [AuthController::class, 'logout']);
+        Route::post('refresh',  [AuthController::class, 'refresh']);
+        Route::get( 'me',       [AuthController::class, 'me']);
+    });
+
+    Route::post("users/create", [ UsersController::class, "store" ]);
+
+    Route::group(["middleware" => "auth"], function(){
+        Route::apiResources([
+            "users"  => UsersController::class,
+            "posts"  => PostsController::class,
+            "videos" => VideosController::class
+        ]);
+    });
 });

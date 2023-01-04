@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "89d98ebe-550b-4ae3-be2e-4dc6f1ba0e85",
+		"name": "Laravel API Posts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Juan Reyes",
+									"description": "Rules: required|string|max:255",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "developer@gmail.com",
+									"description": "Rules: required|email|unique:users,email",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"description": "Rules: string|min:4",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}users/create",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"pm.collectionVariables.set('JWT_TOKEN', res.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "developer@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}auth/sign-in",
+							"host": [
+								"{{API_URL}}auth"
+							],
+							"path": [
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Out",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}auth/sign-out",
+							"host": [
+								"{{API_URL}}auth"
+							],
+							"path": [
+								"sign-out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"pm.collectionVariables.set('JWT_TOKEN', res.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}auth/refresh",
+							"host": [
+								"{{API_URL}}auth"
+							],
+							"path": [
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Connected",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}auth/me",
+							"host": [
+								"{{API_URL}}auth"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}users",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Pagina",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}users/1",
+							"host": [
+								"{{API_URL}}users"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}posts",
+							"host": [
+								"{{API_URL}}posts"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Pagina",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Data Structure with Python",
+									"description": "Rules: required|string|max:155",
+									"type": "text"
+								},
+								{
+									"key": "body",
+									"value": "",
+									"description": "Rules: nullable|string",
+									"type": "text"
+								},
+								{
+									"key": "tags[]",
+									"value": "Programming",
+									"description": "array",
+									"type": "text"
+								},
+								{
+									"key": "tags[]",
+									"value": "Data Structure",
+									"description": "array",
+									"type": "text"
+								},
+								{
+									"key": "tags[]",
+									"value": "Python",
+									"description": "array",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}posts",
+							"host": [
+								"{{API_URL}}posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}posts/1",
+							"host": [
+								"{{API_URL}}posts"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Videos",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}videos",
+							"host": [
+								"{{API_URL}}videos"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Pagina",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Video #1 Laravel 9 Features",
+									"description": "Rules: required|string|max:155",
+									"type": "text"
+								},
+								{
+									"key": "tags[]",
+									"value": "Laravel",
+									"description": "array",
+									"type": "text"
+								},
+								{
+									"key": "tags[]",
+									"value": "Programming",
+									"description": "array",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{API_URL}}videos",
+							"host": [
+								"{{API_URL}}videos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}videos/1",
+							"host": [
+								"{{API_URL}}videos"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{JWT_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({key: 'X-Requested-With', value: 'XMLHttpRequest' })"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "http://localhost:5000/api/"
+		},
+		{
+			"key": "JWT_TOKEN",
+			"value": ""
+		}
+	]
+}

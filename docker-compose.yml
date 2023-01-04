@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+
+  # Nginx Server
+  server:
+    image: nginx:stable-alpine
+    container_name: server
+    restart: always
+    ports:
+      - 5000:80
+    volumes:
+      - ./:/var/www/html:rw
+      - ./docker/config/nginx/default.conf:/etc/nginx/conf.d/default.conf:rw
+    depends_on:
+      - app_posts
+      - mysql
+    networks:
+      - development-v1
+
+  # MySQL Service
+  mysql:
+    image: mysql:5.6
+    container_name: mysql
+    restart: always
+    command: "--max_allowed_packet=4096M --max_connections=500 --max_connect_errors=100 --default-authentication-plugin=mysql_native_password"
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: examen_laravel
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql:rw
+      - ./docker/config/mysql/my.cnf:/etc/mysql/conf.d/my.cnf:rw
+    ports:
+      - 33600:3306
+    networks:
+      - development-v1
+
+  # App Service
+  app_posts:
+    build: .
+    container_name: app_posts
+    volumes:
+      - ./:/var/www/html:rw
+    ports:
+      - 5001:80
+    networks:
+      - development-v1
+
+networks:
+  development-v1:
